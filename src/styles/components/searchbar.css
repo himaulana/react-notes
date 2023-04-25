@@ -1,0 +1,20 @@
+.search-container {
+  position: relative;
+}
+
+.search-column {
+  padding: 0.4rem;
+  border-radius: 8px;
+  width: 400px;
+  font-size: 14px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-40%);
+  cursor: pointer;
+  font-size: 20px;
+}
