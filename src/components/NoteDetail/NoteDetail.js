@@ -2,6 +2,8 @@ import React from 'react';
 import { FiTrash2 } from 'react-icons/fi';
 import { MdOutlineArchive, MdOutlineUnarchive } from 'react-icons/md';
 
+import './NoteDetail.css';
+
 function NoteDetail({
   id,
   title,

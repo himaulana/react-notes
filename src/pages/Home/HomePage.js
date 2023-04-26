@@ -1,23 +1,26 @@
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { getArchivedNotes, unarchiveNote } from '../utils/data';
-import SearchBar from '../components/SearchBar';
-import NoteList from '../components/NoteList';
+import { getActiveNotes, archiveNote } from '../../utils/data';
+import SearchBar from '../../components/SearchBar/SearchBar';
+import NoteList from '../../components/NoteList/NoteList';
+import ButtonAdd from '../../components/Button/ButtonAdd';
 
-class ArchivePage extends React.Component {
+import './HomePage.css';
+
+class HomePage extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      notes: getArchivedNotes(),
+      notes: getActiveNotes(),
       keyword: props.defaultKeyword || '',
     };
   }
 
-  onUnarchive = (id) => {
-    unarchiveNote(id);
+  onArchive = (id) => {
+    archiveNote(id);
     this.setState({
-      notes: getArchivedNotes(),
+      notes: getActiveNotes(),
     });
   };
 
@@ -37,24 +40,25 @@ class ArchivePage extends React.Component {
       );
     });
 
-    if (notes == null) {
+    if (notes === null) {
       return <p>Note is not found!</p>;
     }
 
     return (
       <section id="home">
-        <h1 className="home-title">Notes Archive</h1>
+        <h1 className="home-title">Notes Active</h1>
         <SearchBar
           keyword={this.state.keyword}
           keywordChange={this.onKeywordChange}
         />
-        <NoteList notes={notes} isArchive={this.onUnarchive} />
+        <NoteList notes={notes} isArchive={this.onArchive} />
+        <ButtonAdd />
       </section>
     );
   }
 }
 
-export default function ArchivePageWrapper() {
+export default function HomePageWrapper() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const keyword = searchParams.get('keyword');
@@ -62,7 +66,8 @@ export default function ArchivePageWrapper() {
   function changeSearchParams(keyword) {
     setSearchParams({ keyword });
   }
+
   return (
-    <ArchivePage defaultKeyword={keyword} keywordChange={changeSearchParams} />
+    <HomePage defaultKeyword={keyword} keywordChange={changeSearchParams} />
   );
 }

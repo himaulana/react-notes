@@ -49,6 +49,10 @@ function getAllNotes() {
 
 function getNote(id) {
   const foundedNote = notes.find((note) => note.id === id);
+  if (foundedNote == null) {
+    return foundedNote;
+  }
+
   const formattedDate = formatedDate(foundedNote.createdAt);
   const note = { ...foundedNote, createdAt: formattedDate };
   return note;

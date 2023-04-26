@@ -1,11 +1,10 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { getNote, deleteNote, archiveNote, unarchiveNote } from '../utils/data';
-import NoteDetail from '../components/NoteDetail';
+import { getNote, deleteNote, archiveNote, unarchiveNote } from '../../utils/data';
+import NoteDetail from '../../components/NoteDetail/NoteDetail';
+import NotFound from '../../components/NotFound/NotFound';
 
-import '../styles/pages/detailpage.css';
-
-function DetailPageWrapper() {
+export default function DetailPageWrapper() {
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -19,37 +18,31 @@ class DetailPage extends React.Component {
     this.state = {
       note: getNote(props.id),
     };
-
-    this.onDelete = this.onDelete.bind(this);
-    this.onArchive = this.onArchive.bind(this);
-    this.onUnarchive = this.onUnarchive.bind(this);
   }
 
-  onDelete(id) {
+  onDelete = (id) => {
     deleteNote(id);
     this.props.navigate('/');
-  }
+  };
 
-  onArchive(id) {
+  onArchive = (id) => {
     archiveNote(id);
     this.props.navigate('/');
-  }
+  };
 
-  onUnarchive(id) {
+  onUnarchive = (id) => {
     unarchiveNote(id);
     this.props.navigate('/archives');
-  }
+  };
 
   render() {
-    const { note } = this.state;
-
-    if (note == null) {
-      return <p>Note is not found!</p>;
+    if (this.state.note == null) {
+      return <NotFound />;
     }
 
     return (
       <NoteDetail
-        {...note}
+        {...this.state.note}
         onDelete={this.onDelete}
         onArchive={this.onArchive}
         onUnarchive={this.onUnarchive}
@@ -57,5 +50,3 @@ class DetailPage extends React.Component {
     );
   }
 }
-
-export default DetailPageWrapper;

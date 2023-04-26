@@ -1,7 +1,7 @@
 import React from 'react';
-import NoteItem from './NoteItem';
+import NoteItem from '../NoteItem/NoteItem';
 
-import '../styles/components/noteList.css';
+import './NoteList.css';
 
 export default function NoteList({ notes, isArchive }) {
   return (

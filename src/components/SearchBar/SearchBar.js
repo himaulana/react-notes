@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FiSearch } from 'react-icons/fi';
-import '../styles/components/searchbar.css';
+
+import './SearchBar.css';
 
 export default function SearchBar({ keyword, keywordChange }) {
   return (
@@ -15,9 +15,6 @@ export default function SearchBar({ keyword, keywordChange }) {
           keywordChange(e.target.value);
         }}
       />
-      <div className="search-icon">
-        <FiSearch />
-      </div>
     </div>
   );
 }
