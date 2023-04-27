@@ -1,16 +1,14 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { getNote, deleteNote, archiveNote, unarchiveNote } from '../../utils/data';
+import PropTypes from 'prop-types';
+import {
+  getNote,
+  deleteNote,
+  archiveNote,
+  unarchiveNote,
+} from '../../utils/data';
 import NoteDetail from '../../components/NoteDetail/NoteDetail';
 import NotFound from '../../components/NotFound/NotFound';
-
-export default function DetailPageWrapper() {
-  const { id } = useParams();
-  const navigate = useNavigate();
-
-  return <DetailPage id={id} navigate={navigate} />;
-}
-
 class DetailPage extends React.Component {
   constructor(props) {
     super(props);
@@ -21,8 +19,14 @@ class DetailPage extends React.Component {
   }
 
   onDelete = (id) => {
-    deleteNote(id);
-    this.props.navigate('/');
+    const confirmed = window.confirm(
+      'Apakah anda yakin untuk menghapus note ini?'
+    );
+
+    if (confirmed) {
+      deleteNote(id);
+      this.props.navigate('/');
+    }
   };
 
   onArchive = (id) => {
@@ -50,3 +54,15 @@ class DetailPage extends React.Component {
     );
   }
 }
+
+export default function DetailPageWrapper() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+
+  return <DetailPage id={id} navigate={navigate} />;
+}
+
+DetailPage.propTypes = {
+  id: PropTypes.string.isRequired,
+  navigate: PropTypes.func.isRequired,
+};

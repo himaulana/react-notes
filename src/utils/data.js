@@ -61,12 +61,29 @@ function getNote(id) {
 function getActiveNotes() {
   const activeNotes = notes.filter((note) => !note.archived);
 
-  return activeNotes;
+  if (activeNotes == null) {
+    return activeNotes;
+  }
+
+  const activeNotesWithFormattedDate = activeNotes.map((note) => {
+    return { ...note, createdAt: formatedDate(note.createdAt) };
+  });
+
+  return activeNotesWithFormattedDate;
 }
 
 function getArchivedNotes() {
   const archivedNotes = notes.filter((note) => note.archived);
-  return archivedNotes;
+
+  if (archivedNotes == null) {
+    return archivedNotes;
+  }
+
+  const archivedNotesWithFormattedDate = archivedNotes.map((note) => {
+    return { ...note, createdAt: formatedDate(note.createdAt) };
+  });
+
+  return archivedNotesWithFormattedDate;
 }
 
 function addNote({ title, body }) {

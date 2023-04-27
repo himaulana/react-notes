@@ -1,11 +1,13 @@
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { getActiveNotes, archiveNote } from '../../utils/data';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import NoteList from '../../components/NoteList/NoteList';
 import ButtonAdd from '../../components/Button/ButtonAdd';
 
 import './HomePage.css';
+import NotFound from '../../components/NotFound/NotFound';
 
 class HomePage extends React.Component {
   constructor(props) {
@@ -40,8 +42,8 @@ class HomePage extends React.Component {
       );
     });
 
-    if (notes === null) {
-      return <p>Note is not found!</p>;
+    if (notes.length === 0) {
+      return <NotFound />;
     }
 
     return (
@@ -71,3 +73,8 @@ export default function HomePageWrapper() {
     <HomePage defaultKeyword={keyword} keywordChange={changeSearchParams} />
   );
 }
+
+HomePage.propTypes = {
+  defaultKeyword: PropTypes.string,
+  keywordChange: PropTypes.func.isRequired,
+};

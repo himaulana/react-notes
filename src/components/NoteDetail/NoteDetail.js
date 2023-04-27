@@ -1,10 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FiTrash2 } from 'react-icons/fi';
 import { MdOutlineArchive, MdOutlineUnarchive } from 'react-icons/md';
 
 import './NoteDetail.css';
 
-function NoteDetail({
+export default function NoteDetail({
   id,
   title,
   createdAt,
@@ -55,4 +56,13 @@ function NoteDetail({
   );
 }
 
-export default NoteDetail;
+NoteDetail.propTypes = {
+  id: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  createdAt: PropTypes.string.isRequired,
+  body: PropTypes.string.isRequired,
+  archived: PropTypes.bool.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onArchive: PropTypes.func.isRequired,
+  onUnarchive: PropTypes.func.isRequired,
+};

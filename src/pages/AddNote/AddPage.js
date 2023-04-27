@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { addNote } from '../../utils/data';
 import NoteInput from '../../components/NoteInput/NoteInput';
 
@@ -55,3 +56,7 @@ export default function AddPageWrapper() {
 
   return <AddPage navigate={onNavigate} />;
 }
+
+AddPage.propTypes = {
+  navigate: PropTypes.func.isRequired,
+};

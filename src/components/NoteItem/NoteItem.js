@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { MdOutlineUnarchive } from 'react-icons/md';
 import { MdOutlineArchive } from 'react-icons/md';
 
@@ -21,7 +22,13 @@ export default function NoteItem({ note, isArchive }) {
           {note.title}
         </Link>
       </h2>
+      <p>{note.createdAt}</p>
       <p className="card-content">{note.body}</p>
     </div>
   );
 }
+
+NoteItem.propTypes = {
+  note: PropTypes.object.isRequired,
+  isArchive: PropTypes.bool.isRequired,
+};
